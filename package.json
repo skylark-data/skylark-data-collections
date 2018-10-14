@@ -1,0 +1,32 @@
+{
+  "name": "skylark-utils-collection",
+  "version": "0.9.1",
+  "description": "The skylark collection utility library.",
+  "main": "-",
+  "scripts": {
+    "build": "sbundle build .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "www.skylarkjs.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skylarkjs/skylark-utils-collection.git"
+  },
+  "keywords": [
+    "skylark",
+    "skylarkjs",
+    "javacript",
+    "library",
+    "utility",
+    "collection"
+  ],
+  "author": "Hudaokeji Co.,Ltd",
+  "license": "MIT",
+  "bugs": "https://github.com/skylarkjs/skylark/issues",
+  "devDependencies": {
+    "skylark-langx": "https://github.com/skylarklangx/skylark-langx#master"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
