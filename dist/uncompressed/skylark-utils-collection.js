@@ -80,12 +80,12 @@
 
 })(function(define,require) {
 
-define('collections',[
+define('skylark-utils-collection/collections',[
 	"skylark-langx/skylark"
 ],function(skylark){
 	return skylark.collections = {};
 });
-define('Collection',[
+define('skylark-utils-collection/Collection',[
     "skylark-langx/Evented",
     "./collections"
 ], function(klass, collections) {
@@ -171,7 +171,7 @@ define('Collection',[
 
 });
 
-define('List',[
+define('skylark-utils-collection/List',[
     "skylark-langx/arrays",
     "./collections",
     "./Collection"
@@ -313,8 +313,99 @@ define('List',[
     return List;
 });
 
+define('collections',[
+	"skylark-langx/skylark"
+],function(skylark){
+	return skylark.collections = {};
+});
+define('Collection',[
+    "skylark-langx/Evented",
+    "./collections"
+], function(klass, collections) {
 
-define('Map',[
+    var Collection = collections.Collection = Evented.inherit({
+
+        "klassName": "Collection",
+
+        _clear: function() {
+            throw new Error('Unimplemented API');
+        },
+
+        "clear": function() {
+            //desc: "Removes all items from the Collection",
+            //result: {
+            //    type: Collection,
+            //    desc: "this instance for chain call"
+            //},
+            //params: [],
+            this._clear();
+            this.trigger("changed:clear");
+            return this;
+        },
+
+        /*
+         *@method count
+         *@return {Number}
+         */
+        count : /*Number*/function () {
+            var c = 0,
+                it = this.iterator();
+            while(!it.hasNext()){
+                c++;
+            }
+            return c;
+        },
+
+        "forEach": function( /*Function*/ func, /*Object?*/ thisArg) {
+            //desc: "Executes a provided callback function once per collection item.",
+            //result: {
+            //    type: Number,
+            //    desc: "the number of items"
+            //},
+            //params: [{
+            //    name: "func",
+            //    type: Function,
+            //    desc: "Function to execute for each element."
+            //}, {
+            //    name: "thisArg",
+            //    type: Object,
+            //    desc: "Value to use as this when executing callback."
+            //}],
+            var it = this.iterator();
+            while(!it.hasNext()){
+                var item = it.next();
+                func.call(thisArg || item,item);
+            }
+            return this;
+
+        },
+
+        "iterator" : function() {
+            throw new Error('Unimplemented API');
+        },
+
+        "toArray": function() {
+            //desc: "Returns an array containing all of the items in this collection in proper sequence (from first to last item).",
+            //result: {
+            //    type: Array,
+            //    desc: "an array containing all of the elements in this collection in proper sequence"
+            //},
+            //params: [],
+            var items = [],
+                it = this.iterator();
+            while(!it.hasNext()){
+                items.push(it.next());
+            }
+            return items;
+        }
+    });
+
+    return Collection;
+
+});
+
+
+define('skylark-utils-collection/Map',[
     "./collections",
     "Collection"
 ], function( collections, Collection) {
@@ -534,7 +625,7 @@ define('Map',[
     return Map;
 });
 
-define('ArrayList',[
+define('skylark-utils-collection/ArrayList',[
     "./collections",
     "./List"
 ], function(collections, List) {
@@ -858,7 +949,7 @@ define('ArrayList',[
 });
 
 
-define('PagedList',[
+define('skylark-utils-collection/PagedList',[
     "skylark-langx/types",
     "skylark-langx/Deferred",
     "./collections",
@@ -1036,7 +1127,7 @@ define('PagedList',[
 });
 
 
-define('Queue',[
+define('skylark-utils-collection/Queue',[
     "./collections",
 	"./List"
 ],function(collections,List) {
@@ -1102,7 +1193,7 @@ define('Queue',[
 
 });
 
-define('Set',[
+define('skylark-utils-collection/Set',[
     "skylark-langx/arrays",
     "./collections",
     "./Collection"
@@ -1245,7 +1336,7 @@ define('Set',[
 });
 
 
-define('Stack',[
+define('skylark-utils-collection/Stack',[
     "./collections",
 	"./List"
 ],function(collections,List) {
@@ -1322,7 +1413,7 @@ define('Stack',[
 });
 
 
-define('TreeItem',[
+define('skylark-utils-collection/TreeItem',[
     "skylark-langx/arrays",
     "skylark-langx/Evented",
     "./collections"
@@ -1751,7 +1842,7 @@ define('TreeItem',[
 });
 
 
-define('Tree',[
+define('skylark-utils-collection/Tree',[
     "./collections",
 	"./Collection",
 	"./ArrayList",
@@ -1839,17 +1930,17 @@ define('Tree',[
 });
 
 define('skylark-utils-collection/main',[
-	"collections",
-	"Collection",
-	"List",
-	"Map",
-	"ArrayList",
-	"PagedList",
-	"Queue",
-	"Set",	
-	"Stack",	
-	"Tree",
-	"TreeItem"
+	"./collections",
+	"./Collection",
+	"./List",
+	"./Map",
+	"./ArrayList",
+	"./PagedList",
+	"./Queue",
+	"./Set",	
+	"./Stack",	
+	"./Tree",
+	"./TreeItem"
 ],function(collections){
 	return collections;
 });
