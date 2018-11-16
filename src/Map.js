@@ -1,7 +1,7 @@
 
 define([
     "./collections",
-    "Collection"
+    "./Collection"
 ], function( collections, Collection) {
 
     var Map = collections.Map = Collection.inherit({
