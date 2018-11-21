@@ -88,7 +88,7 @@ define('skylark-utils-collection/collections',[
 define('skylark-utils-collection/Collection',[
     "skylark-langx/Evented",
     "./collections"
-], function(klass, collections) {
+], function(Evented, collections) {
 
     var Collection = collections.Collection = Evented.inherit({
 
@@ -168,7 +168,6 @@ define('skylark-utils-collection/Collection',[
     });
 
     return Collection;
-
 });
 
 define('skylark-utils-collection/List',[

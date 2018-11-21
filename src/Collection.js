@@ -1,7 +1,7 @@
 define([
     "skylark-langx/Evented",
     "./collections"
-], function(klass, collections) {
+], function(Evented, collections) {
 
     var Collection = collections.Collection = Evented.inherit({
 
@@ -81,5 +81,4 @@ define([
     });
 
     return Collection;
-
 });
