@@ -1467,10 +1467,11 @@ define('skylark-utils-collection/Map',[
             if (typeof(strKey) != "string") {
                 throw "hash key is not string!";
             }
+            /*
             if (!silent && !this.contains(strKey)) {
                 throw "hash key is not  existed";
             }
-
+            */
             var items = this._getInnerItems();
             return items[strKey];
         },
@@ -1507,23 +1508,27 @@ define('skylark-utils-collection/Map',[
                 throw "hash key is not string!";
             }
 
+            /*
             if (!this.contains(strKey)) {
                 throw "hash key is not existed";
             }
+            */
 
             var items = this._getInnerItems();
             if (items.indexOf(strKey) == -1) {
                 items.push(strKey);
             }
-            var oldValue = items[key];
+            var oldValue = items[strKey];
             if (oldValue !== value) {
-                items[key] = value;
-                this.trigger("changed:" + strKey,{
-                    data : {
-                        name : strKey,
-                        value : value,
-                        oldValue : oldValue
-                    }
+                items[strKey] = value;
+                var updated = {};
+                updated[strKey] = {
+                    name : strKey,
+                    value : value,
+                    oldValue : oldValue
+                };
+                this.trigger("changed" ,{ //TODO: "changed:"+ strKey
+                    data : updated
                 });
             }
             return this;
