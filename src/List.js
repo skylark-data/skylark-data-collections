@@ -113,13 +113,14 @@ define([
         },
 
         "iterator" : function() {
-            var i =0;
+            var i =0,
+                self = this;
             return {
                 hasNext : function() {
-                    return i < this._items.length;
+                    return i < self._items.length;
                 },
                 next : function() {
-                    return this._items[i++];
+                    return self._items[i++];
                 }
             }
         },

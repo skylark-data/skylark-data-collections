@@ -37,11 +37,16 @@
                 deps: deps.map(function(dep){
                   return absolute(dep,id);
                 }),
+                resolved: false,
                 exports: null
             };
             require(id);
         } else {
-            map[id] = factory;
+            map[id] = {
+                factory : null,
+                resolved : true,
+                exports : factory
+            };
         }
     };
     require = globals.require = function(id) {
@@ -49,14 +54,15 @@
             throw new Error('Module ' + id + ' has not been defined');
         }
         var module = map[id];
-        if (!module.exports) {
+        if (!module.resolved) {
             var args = [];
 
             module.deps.forEach(function(dep){
                 args.push(require(dep));
             })
 
-            module.exports = module.factory.apply(globals, args);
+            module.exports = module.factory.apply(globals, args) || null;
+            module.resolved = true;
         }
         return module.exports;
     };
@@ -285,13 +291,14 @@ define('skylark-utils-collection/List',[
         },
 
         "iterator" : function() {
-            var i =0;
+            var i =0,
+                self = this;
             return {
                 hasNext : function() {
-                    return i < this._items.length;
+                    return i < self._items.length;
                 },
                 next : function() {
-                    return this._items[i++];
+                    return self._items[i++];
                 }
             }
         },
@@ -1861,3 +1868,4 @@ define('skylark-utils-collection', ['skylark-utils-collection/main'], function (
 
 
 },this);
+//# sourceMappingURL=sourcemaps/skylark-utils-collection.js.map
