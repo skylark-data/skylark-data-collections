@@ -145,7 +145,7 @@ define('skylark-utils-collection/Collection',[
             //    desc: "Value to use as this when executing callback."
             //}],
             var it = this.iterator();
-            while(!it.hasNext()){
+            while(it.hasNext()){
                 var item = it.next();
                 func.call(thisArg || item,item);
             }
