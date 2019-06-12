@@ -5,5 +5,5 @@
  * @link www.skylarkjs.org
  * @license MIT
  */
-define(["skylark-langx/skylark"],function(n){return n.collections={}});
+define(["skylark-langx/skylark"],function(a){return a.attach("data.collections",{})});
 //# sourceMappingURL=sourcemaps/collections.js.map

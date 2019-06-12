@@ -89,7 +89,7 @@
 define('skylark-data-collection/collections',[
 	"skylark-langx/skylark"
 ],function(skylark){
-	return skylark.collections = {};
+	return skylark.attach("data.collections",{});
 });
 define('skylark-data-collection/Collection',[
     "skylark-langx/Evented",
