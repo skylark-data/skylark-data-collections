@@ -1,6 +1,7 @@
 define([
 	"./collections",
 	"./Collection",
+	"./HashMap",
 	"./List",
 	"./Map",
 	"./ArrayList",

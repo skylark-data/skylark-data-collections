@@ -5,5 +5,5 @@
  * @link www.skylarkjs.org
  * @license MIT
  */
-define(["./collections","./Collection","./List","./Map","./ArrayList","./PagedList","./Queue","./Set","./Stack","./Tree","./TreeItem"],function(e){return e});
+define(["./collections","./Collection","./HashMap","./List","./Map","./ArrayList","./PagedList","./Queue","./Set","./Stack","./Tree","./TreeItem"],function(e){return e});
 //# sourceMappingURL=sourcemaps/main.js.map
