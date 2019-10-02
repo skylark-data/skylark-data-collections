@@ -5,5 +5,5 @@
  * @link www.skylarkjs.org
  * @license MIT
  */
-define(["./collections","./Map"],function(n,e){return n.HashMap=e.inhert({})});
+define(["./collections","./Map"],function(n,e){return n.HashMap=e.inherit({})});
 //# sourceMappingURL=sourcemaps/HashMap.js.map
