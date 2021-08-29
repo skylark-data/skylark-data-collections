@@ -1,1 +1,0 @@
-{"version":3,"sources":["collections.js"],"names":["define","skylark","attach"],"mappings":";;;;;;;AAAAA,QACC,yBACC,SAASC,GACV,OAAOA,EAAQC,OAAO","file":"../collections.js","sourcesContent":["define([\r\n\t\"skylark-langx/skylark\"\r\n],function(skylark){\r\n\treturn skylark.attach(\"data.collections\",{});\r\n});"]}
