@@ -25,7 +25,7 @@
   "bugs": "https://github.com/skylarkjs/skylark/issues",
   "dependencies": {
     "skylark-langx-ns": "git+https://github.com/skylark-langx/skylark-langx-ns.git",
-    "skylark-langx-arrays": "git+https://github.com/skylark-langx/skylark-langx-ns.arrays",
+    "skylark-langx-arrays": "git+https://github.com/skylark-langx/skylark-langx-arrays",
     "skylark-langx-objects": "git+https://github.com/skylark-langx/skylark-langx-objects.git",
     "skylark-langx-types": "git+https://github.com/skylark-langx/skylark-langx-types.git",
     "skylark-langx-events": "git+https://github.com/skylark-langx/skylark-langx-events.git",
