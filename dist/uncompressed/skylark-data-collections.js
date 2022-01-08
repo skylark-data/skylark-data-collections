@@ -1,5 +1,5 @@
 /**
- * skylark-data-collection - The skylark collection utility library.
+ * skylark-data-collections - The skylark collection utility library.
  * @author Hudaokeji Co.,Ltd
  * @version v0.9.1
  * @link www.skylarkjs.org
@@ -86,12 +86,12 @@
 
 })(function(define,require) {
 
-define('skylark-data-collection/collections',[
+define('skylark-data-collections/collections',[
 	"skylark-langx-ns"
 ],function(skylark){
 	return skylark.attach("data.collections",{});
 });
-define('skylark-data-collection/collection',[
+define('skylark-data-collections/collection',[
     "skylark-langx-events/emitter",
     "./collections"
 ], function(Evented, collections) {
@@ -177,7 +177,7 @@ define('skylark-data-collection/collection',[
 });
 
 
-define('skylark-data-collection/Map',[
+define('skylark-data-collections/Map',[
     "./collections",
     "./collection"
 ], function( collections, Collection) {
@@ -403,7 +403,7 @@ define('skylark-data-collection/Map',[
 });
 
 
-define('skylark-data-collection/hash-map',[
+define('skylark-data-collections/hash-map',[
     "./collections",
 	"./Map"
 ],function(collections,_Map) {
@@ -413,7 +413,7 @@ define('skylark-data-collection/hash-map',[
 
 	return HashMap;
 });
-define('skylark-data-collection/list',[
+define('skylark-data-collections/list',[
     "skylark-langx-arrays",
     "./collections",
     "./collection"
@@ -556,8 +556,114 @@ define('skylark-data-collection/list',[
     return List;
 });
 
+define('skylark-data-collections/lru-node',[
+    "./collections"
+], function(collections, List) {
 
-define('skylark-data-collection/map',[
+    class LruNode {
+        constructor(key, value) {
+            this.key = key;
+            this.value = value;
+            this.prev = null;
+            this.next = null;
+        }
+    }
+
+    return collections.LruNode = LruNode;
+});
+define('skylark-data-collections/lru-cache',[
+    "./collections",
+    "./lru-node"
+], function(collections,LruNode) {
+   // Adapted from https://chrisrng.svbtle.com/lru-cache-in-javascript
+    class LruCache {
+        constructor(limit) {
+            this.limit = limit;
+            this.size = 0;
+            this.map = {};
+            this.head = null;
+            this.tail = null;
+        }
+        /**
+         * Change or add a new value in the cache
+         * We overwrite the entry if it already exists
+         */
+        set(key, value) {
+            const node = new LruNode(key, value);
+            if (this.map[key]) {
+                this.map[key].value = node.value;
+                this.remove(node.key);
+            }
+            else {
+                if (this.size >= this.limit) {
+                    delete this.map[this.tail.key];
+                    this.size--;
+                    this.tail = this.tail.prev;
+                    this.tail.next = null;
+                }
+            }
+            this.setHead(node);
+        }
+        /* Retrieve a single entry from the cache */
+        get(key) {
+            if (this.map[key]) {
+                const value = this.map[key].value;
+                const node = new LruNode(key, value);
+                this.remove(key);
+                this.setHead(node);
+                return value;
+            }
+            else {
+                return null;
+            }
+        }
+        /* Remove a single entry from the cache */
+        remove(key) {
+            const node = this.map[key];
+            if (!node) {
+                return;
+            }
+            if (node.prev !== null) {
+                node.prev.next = node.next;
+            }
+            else {
+                this.head = node.next;
+            }
+            if (node.next !== null) {
+                node.next.prev = node.prev;
+            }
+            else {
+                this.tail = node.prev;
+            }
+            delete this.map[key];
+            this.size--;
+        }
+        /* Resets the entire cache - Argument limit is optional to be reset */
+        removeAll() {
+            this.size = 0;
+            this.map = {};
+            this.head = null;
+            this.tail = null;
+        }
+        setHead(node) {
+            node.next = this.head;
+            node.prev = null;
+            if (this.head !== null) {
+                this.head.prev = node;
+            }
+            this.head = node;
+            if (this.tail === null) {
+                this.tail = node;
+            }
+            this.size++;
+            this.map[node.key] = node;
+        }
+    }
+
+    return collections.LruCache = LruCache;
+});
+
+define('skylark-data-collections/map',[
     "./collections",
     "./collection"
 ], function( collections, Collection) {
@@ -782,7 +888,7 @@ define('skylark-data-collection/map',[
     return Map;
 });
 
-define('skylark-data-collection/array-list',[
+define('skylark-data-collections/array-list',[
     "./collections",
     "./list"
 ], function(collections, List) {
@@ -1106,7 +1212,7 @@ define('skylark-data-collection/array-list',[
 });
 
 
-define('skylark-data-collection/paged-list',[
+define('skylark-data-collections/paged-list',[
     "skylark-langx-types",
     "skylark-langx-async/deferred",
     "./collections",
@@ -1284,7 +1390,7 @@ define('skylark-data-collection/paged-list',[
 });
 
 
-define('skylark-data-collection/queue',[
+define('skylark-data-collections/queue',[
     "./collections",
 	"./list"
 ],function(collections,List) {
@@ -1350,7 +1456,7 @@ define('skylark-data-collection/queue',[
 
 });
 
-define('skylark-data-collection/set',[
+define('skylark-data-collections/set',[
     "skylark-langx-arrays",
     "./collections",
     "./collection"
@@ -1492,7 +1598,7 @@ define('skylark-data-collection/set',[
     return Set;
 });
 
-define('skylark-data-collection/List',[
+define('skylark-data-collections/List',[
     "skylark-langx-arrays",
     "./collections",
     "./collection"
@@ -1636,7 +1742,7 @@ define('skylark-data-collection/List',[
 });
 
 
-define('skylark-data-collection/stack',[
+define('skylark-data-collections/stack',[
     "./collections",
 	"./List"
 ],function(collections,List) {
@@ -1712,7 +1818,7 @@ define('skylark-data-collection/stack',[
 
 });
 
-define('skylark-data-collection/Collection',[
+define('skylark-data-collections/Collection',[
     "skylark-langx-events/emitter",
     "./collections"
 ], function(Evented, collections) {
@@ -1798,7 +1904,7 @@ define('skylark-data-collection/Collection',[
 });
 
 
-define('skylark-data-collection/tree-item',[
+define('skylark-data-collections/tree-item',[
     "skylark-langx-arrays",
     "skylark-langx-events/emitter",
     "./collections"
@@ -2227,7 +2333,7 @@ define('skylark-data-collection/tree-item',[
 });
 
 
-define('skylark-data-collection/tree',[
+define('skylark-data-collections/tree',[
     "./collections",
 	"./Collection",
 	"./array-list",
@@ -2314,11 +2420,12 @@ define('skylark-data-collection/tree',[
 
 });
 
-define('skylark-data-collection/main',[
+define('skylark-data-collections/main',[
 	"./collections",
 	"./collection",
 	"./hash-map",
 	"./list",
+	"./lru-cache",
 	"./map",
 	"./array-list",
 	"./paged-list",
@@ -2330,8 +2437,8 @@ define('skylark-data-collection/main',[
 ],function(collections){
 	return collections;
 });
-define('skylark-data-collection', ['skylark-data-collection/main'], function (main) { return main; });
+define('skylark-data-collections', ['skylark-data-collections/main'], function (main) { return main; });
 
 
 },this);
-//# sourceMappingURL=sourcemaps/skylark-data-collection.js.map
+//# sourceMappingURL=sourcemaps/skylark-data-collections.js.map

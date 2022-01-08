@@ -1,2 +1,2 @@
-# skylark-data-collection
+# skylark-data-collections
 The skylark collection utility library

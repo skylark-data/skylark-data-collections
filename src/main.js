@@ -3,6 +3,7 @@ define([
 	"./collection",
 	"./hash-map",
 	"./list",
+	"./lru-cache",
 	"./map",
 	"./array-list",
 	"./paged-list",

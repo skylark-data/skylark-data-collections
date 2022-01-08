@@ -1,5 +1,5 @@
 {
-  "name": "skylark-data-collection",
+  "name": "skylark-data-collections",
   "version": "0.9.1",
   "description": "The skylark collection utility library.",
   "main": "-",
@@ -10,7 +10,7 @@
   "homepage": "www.skylarkjs.org",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skylark-data/skylark-data-collection.git"
+    "url": "git+https://github.com/skylark-data/skylark-data-collections.git"
   },
   "keywords": [
     "skylark",

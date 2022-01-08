@@ -1,5 +1,5 @@
 /**
- * skylark-data-collection - The skylark collection utility library.
+ * skylark-data-collections - The skylark collection utility library.
  * @author Hudaokeji Co.,Ltd
  * @version v0.9.1
  * @link www.skylarkjs.org
